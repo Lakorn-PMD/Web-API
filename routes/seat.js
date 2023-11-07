@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 // Schema 
 const seatSchema = require('../models/seat');
+const ticketSchema = require('../models/ticket');
 
 router.get('/', async (req, res) => {
     if (req.query.name) {
@@ -34,7 +35,6 @@ router.post('/create/:name', async (req, res) => {
             if (a.row === b.row) {
                 return a.col - b.col;
             }
-            console.log(a.row - b.row)
             return a.row - b.row;
         });
     });
@@ -47,7 +47,6 @@ router.post('/create/:name', async (req, res) => {
 
 router.post('/reserved', async (req, res) => {
     const body = req.body;
-
     body.seat.forEach(async (seat) => {
         try {
             const filter = {
